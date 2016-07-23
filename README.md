@@ -40,7 +40,7 @@ The network graph:
 A weighted directed graph where all the vertices are cities and, if there is an edge going from city1 to city2 with weight w, the correlation between city1 and city2 with delay w is above a determined threshold.   
 
 The input dataset structure:  
-The actual dataset have the following structure:  
+The actual dataset have the following structure, where each line is one case of the disease:  
 1 - ID  
 2 - MUNIRES  
 3 - Notification date  
