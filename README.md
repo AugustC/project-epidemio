@@ -9,26 +9,15 @@ O grafo:
 Um grafo direcionado e ponderado onde todos os vértices são cidades e existe uma aresta indo do vertice u até v com peso w se a correlação entre a cidade u e a cidade v com "delay" de w semanas é acima de um determinado limiar.  
 
 A estrutura dos dados de entrada:  
-Os dados atualmente usados estão em formato csv, com a seguinte estrutura:  
-1 - ID  
-2 - MUNIRES  
-3 - Data de Notificação  
-4 - Semana da Notificação  
-5 - Ano  
-6 - Sigla UF  
-7 - ID do municipio  
-8 - ID da unidade de saúde  
-9 - NU_IDADE  
-10- Idade  
-11- Data de nascimento  
-12- Região  
-13- Estado  
-14- Cidade  
-Possivelmente essa estrutura será mudada para uma mais simples e mais abrangente no futuro, sem os atributos não usados.  
-O programa necessita também da população de cada cidade.  
+Os dados de entrada podem estar de duas formas: dados brutos ou dados da incidencia por semana.
+   Dados Brutos:
+   Dados brutos são os dados em que cada linha é um caso da doença. Esses dados precisam estar em formato csv e possuir as seguintes colunas: CIDADE(cidade ou município em que foi notificada a doença), NU_ANO(numero do ano em que ocorreu a doença) e SEM_NOT(semana do ano em que ocorreu a doença, i. e., primeira semana (1), segunda semana(2), etc.)
+   Dados da incidencia:
+   Dados da incidencia da doença por semana, i. e., uma matriz em que cada linha é um município e cada coluna é uma semana e os valores são a incidencia da doença naquela cidade durante aquela semana. 
+O programa também necessita de um arquivo de texto com duas colunas sendo a primeira o nome do município e a segunda a população urbana dele. 
 
 Programa:  
-O programa receberá os dados em .csv e fará um pré-processamento para criar os objetos da classe City, onde cada um será uma cidade com a frequencia da doença, o nome da cidade, a população total e as semanas em que houve um pico significativo da doença. Com isso o programa poderá desenhar os gráficos de frequencia de cada cidade e fazer a correlação entre as cidades para criar uma rede que mostre como a doença se espalha.  
+O programa receberá os dados em .csv e fará um pré-processamento para mudá-los para o formato series do pandas. Com os dados nesse formato, o programa realizará um filtro para retirar os municípios em que não houve surto da doença (não houve incidência de mais de 300 casos a cada 100000 habitantes). O programa então reconhecerá os surtos significativos das doenças e usará isso para achar o foco (municípios que tiveram surto da doença em semanas anteriores ao surto dos outros municípios). Após isso, o algoritmo realizará correlações entre as cidades do foco e as cidades que tiveram surtos posteriores, montando assim o grafo direcionado da mobilidade da doença.
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -40,23 +29,12 @@ The network graph:
 A weighted directed graph where all the vertices are cities and, if there is an edge going from city1 to city2 with weight w, the correlation between city1 and city2 with delay w is above a determined threshold.   
 
 The input dataset structure:  
-The actual dataset have the following structure, where each line is one case of the disease:  
-1 - ID  
-2 - MUNIRES  
-3 - Notification date  
-4 - Notification week  
-5 - Year  
-6 - UF initials  
-7 - City ID  
-8 - Health unit ID  
-9 - NU_IDADE  
-10- Age  
-11- Birthday  
-12- Region  
-13- State  
-14- City  
-Possibly this structure will change in the future to a simpler one, without the useless atributes.  
-The program will also receive the total population of each city.  
+The input dataset must be in one of the two following structures: raw data or frequency data
+    Raw data:
+    Raw data is a dataset where each line is a case of the disease. This dataset must be in csv format and have the following columns: CIDADE (city where the disease was notified), NU_ANO(the year when the disease was notified), SEM_NOT(the week of the year in which the disease was notified, that is, first week (1), second week(2), so forth)
+    Frequency data:
+    Frequency data of the disease per week, that is, a matrix where each line is a city and each column is a week and the values are the disease frequency of that city during that week.
+
 
 Program:  
-The program will receive the dataset in a .csv file and it will pre-process it to create the objects of the class City, where each object has the name of the city, the disease frequency, the total population and the weeks of a significant outbreak. Then, the program can plot the frequency graphs of the disease in each city and do the correlation between cities to create the network graph of how the disease spread.
+The program will receive the dataset in a .csv file and it will pre-process it to change it to the pandas series format. After that, the program will filter the dataset to use only the cities where an significant outbreak occurred (that is, more than 300 cases per 100000 inhabitants). The program find where those outbreaks occurred and will use that to find the focus (cities that had outbreaks before the others). Then, the algoritm will do correlations between the focus and the other cities, therefore, creating a directed graph of the disease spread.
