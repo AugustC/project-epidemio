@@ -23,3 +23,8 @@ def read_population(filename):
             (key, val) = line.split()
             d[key] = val
     return d
+
+def weight_population(dataset, population):
+    # Function that receives a dataset of the disease and the population of each city
+    # and returns a disease frequency series, weighted by the population of each city
+    pass
