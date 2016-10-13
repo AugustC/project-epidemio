@@ -3,21 +3,28 @@ import numpy as np
 
 def pearson_correlation(time_series1, time_series2, delay=0):
     # Pearson correlation of the disease frequency in time_series1 and time_series2    
-    x = time_series1[:-delay]
-    y = time_series2[delay:]
+    if delay > 0:
+        x = time_series1[:-delay]
+        y = time_series2[delay:]
+    else:
+        x = time_series1[:]
+        y = time_series2[:]
+        
     corr = sp.pearsonr(x, y)[0]
     return corr
 
-def cities_correlations(city1, city2, dataset, year, delay, threshold):
-    # Function that receives two arrays of (city, week) and perform the correlation between city 1 and city 2
-    # in the year passed as argument, with a delay between the weeks,
-    for c1 in city1:
-        for c2 in city2:
-            cor_city1 = dataset[c1[0]][year].values
-            cor_city2 = dataset[c2[0]][year].values
-            pcor = pearson_correlation(cor_city1, cor_city2, delay)
-            if pcor > threshold:
-                print(c1[0] + " --> " + c2[0] + " with delay " + str(delay))
+def correlation_cities(cities1, cities2, dataset, year, delay, threshold):
+    # Function that receives two arrays of cities' names and returns a list of cities' names from cities2 that has a
+    # pearson correlation above threshold
+    cor_cities = []
+    for city1 in cities1:
+        for city2 in cities2:
+            cor_city1 = dataset[city1[0]][year].values
+            cor_city2 = dataset[city2[0]][year].values
+            p = pearson_correlation(cor_city1, cor_city2, delay)
+            if p > threshold:
+                cor_cities.append((city1[0], city2[0]))
+    return cor_cities
     
 def two_derivatives(city, week):
     # Function that returns true if the disease_frequency still grows after it reached 300 per 100000 of inhabitants
@@ -32,7 +39,7 @@ def two_derivatives(city, week):
 def find_outbreaks(dataset, city, year):
     # Function that returns true if an outbreak occurred in that city, during that year,
     # and the week that the outbreak started. If there wasn't an outbreak that year, week returns -1
-    disease_frequency = dataset[city][year].values
+    disease_frequency = dataset[city][year]
     count = 0;
     for i in range(len(disease_frequency)):
         count = count + disease_frequency[i]

@@ -4,12 +4,18 @@ import runtime_functions as rt
 import numpy as np
 
 # Read user input
+aux = input("1 - Ler dados brutos, 2 - Ler dados de frequencia: ")
 data_file = input("Entre com o nome do arquivo csv: ")
-dataset = dt.read_raw_input(data_file)
-#population_file = input("Entre com o nome do arquivo das populacoes: ")
-#population = dt.read_population(population_file)
-#dataset = dt.weight_population(dataset1, population)
+if aux == '1':
+    dataset = dt.read_raw_input(data_file)
+    population_file = input("Entre com o nome do arquivo das populacoes: ")
+    population = dt.read_population(population_file)
+    dataset = dt.weight_population(dataset1, population)
+else:
+    dataset = dt.read_frequency_input(data_file)
+
 focus_time = int(input("Entre com a quantidade de semanas do foco: "))
+k = 0.8
 
 # First filter
 cities = dataset.index.levels[0]
@@ -29,34 +35,23 @@ for year in years:
     outbreak_cities = outbreaks[year]
     outbreak_cities.sort(key=lambda x : x[1])
     i = 0
-
+    
     # Focus
     startweek_focus = outbreak_cities[0][1]
     endweek_focus = startweek_focus + focus_time
     while outbreak_cities[i][1] <= endweek_focus:
         focus.append(outbreak_cities[i])
         i = i + 1
-    print(year)
-    print("Focos da doenca: ", focus)
-
-    # Following graph levels, after focus
-    j = 1
-    all_levels = []
-    all_levels.append(focus)
-    while i < len(outbreak_cities):
-        # level j
-        level = []
-        while i < len(outbreak_cities) and outbreak_cities[i][1] == (endweek_focus + j):
-            level.append(outbreak_cities[i])
-            i = i + 1
-        if len(level) >= 1: # Do not print levels that don't have cities
-            print("Nivel " + str(j) + ": " + str(level))
-        all_levels.append(level)
-         
-        # Correlation between the levels of the graph
-        print("Correlacoes:")   
-        for k in range(j):
-            cor.cities_correlations(all_levels[k], all_levels[j], dataset, year, j - k, year)
-            
-        j = j + 1
     print()
+    print(year)
+    f_print = [city[0] for city in focus]
+    print("Focos da doenca: ", f_print)
+    
+    # S1, first graph level
+    S1 = [city for city in outbreak_cities if city not in focus]
+    S1_cities = cor.correlation_cities(focus, S1, dataset, year, 0, k)
+
+    print()
+    print("Cidades que tiveram correlacao maior que " + str(k) + " com delay 0")
+    for cities in S1_cities:
+        print(cities)
