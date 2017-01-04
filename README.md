@@ -13,7 +13,7 @@ Os dados de entrada podem estar de duas formas: dados brutos ou dados da inciden
    Dados Brutos:
    Dados brutos são os dados em que cada linha é um caso da doença. Esses dados precisam estar em formato csv e possuir as seguintes colunas: CIDADE(cidade ou município em que foi notificada a doença), NU_ANO(numero do ano em que ocorreu a doença) e SEM_NOT(semana do ano em que ocorreu a doença, i. e., primeira semana (1), segunda semana(2), etc.)
    Dados da incidencia:
-   Dados da incidencia da doença por semana, i. e., uma matriz em que cada linha é um município e cada coluna é uma semana e os valores são a incidencia da doença naquela cidade durante aquela semana. 
+   Dados da incidencia da doença por semana, i. e., uma matriz em que cada linha é um ano do município e cada coluna é uma semana e os valores são a incidencia da doença naquela cidade durante aquela semana. 
 O programa também necessita de um arquivo de texto com duas colunas sendo a primeira o nome do município e a segunda a população urbana dele. 
 
 Programa:  
@@ -33,7 +33,7 @@ The input dataset must be in one of the two following structures: raw data or fr
     Raw data:
     Raw data is a dataset where each line is a case of the disease. This dataset must be in csv format and have the following columns: CIDADE (city where the disease was notified), NU_ANO(the year when the disease was notified), SEM_NOT(the week of the year in which the disease was notified, that is, first week (1), second week(2), so forth)
     Frequency data:
-    Frequency data of the disease per week, that is, a matrix where each line is a city and each column is a week and the values are the disease frequency of that city during that week.
+    Frequency data of the disease per week, that is, a matrix where each line is a year of a city and each column is a week and the values are the disease frequency of that city during that week.
 
 
 Program:  
