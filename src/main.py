@@ -31,7 +31,7 @@ for year in years:
 
 # Find graph
 # for year in years:              
-year = "2008"                     # user input
+year = input("Entre com o ano desejado: ")                     # user input
 focus = []
 outbreak_cities = outbreaks[year]
 outbreak_cities.sort(key=lambda x : x[1])
