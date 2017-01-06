@@ -60,7 +60,14 @@ for cities in S1_cities:
     g.add_node(cities[1])    
     g.add_edge(cities[0], cities[1])
 
-nx.draw_networkx(g, with_labels=True, arrows=True, nodesize=150, node_color='y')
+# TODO: Change color of focus
+pos_spring = nx.spring_layout(g)
+nx.draw_networkx(g, with_labels=False, arrows=True, node_color='y', linewidth=0, pos=pos_spring)
+for p in pos_spring:
+    pos_spring[p][1] += 0.03
+nx.draw_networkx_labels(g, pos_spring)
 plt.show()
+
 # S2 = [city for city in outbreak_cities if city not in focus]
     
+
