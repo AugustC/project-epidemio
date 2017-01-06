@@ -10,9 +10,10 @@ Um grafo direcionado e ponderado onde todos os vértices são cidades e existe uma
 
 A estrutura dos dados de entrada:  
 Os dados de entrada podem estar de duas formas: dados brutos ou dados da incidencia por semana.
+
    Dados Brutos:
    Dados brutos são a quantidade de notificações por semana da doença. Cada linha representa uma cidade e cada coluna uma semana, em ordem cronológica. Dados de exemplo serão adicionados.
-O programa também necessita de um arquivo de texto com duas colunas sendo a primeira o nome do município e a segunda a população urbana dele. 
+   O programa também necessita de um arquivo de texto com duas colunas sendo a primeira o nome do município e a segunda a população urbana dele. 
 
    Dados de Incidencia:
    Dados de incidencia são os dados já divididos pelo tamanho da população de cada município.
@@ -31,6 +32,7 @@ A weighted directed graph where all the vertices are cities and, if there is an 
 
 The input dataset structure:  
 The input dataset must be in one of the two following structures: raw data or frequency data
+
     Raw data:
     Raw data is a dataset where each line represents one city and each column represents a week, in chronological order. Example datasets are going to be added soon.
     The program also needs a file with two columns, the first being the name of the city and the second the population of it. 
