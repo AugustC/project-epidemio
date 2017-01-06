@@ -2,6 +2,8 @@
 import correlations as cor
 import dataset as dt
 import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
 
 # Read user input
 aux = input("1 - Ler dados brutos, 2 - Ler dados de frequencia: ")
@@ -17,7 +19,7 @@ else:
 focus_time = int(input("Entre com a quantidade de semanas do foco: "))
 k = float(input("Entre com o threshold da correlacao: "))
 
-# First filter
+# First filter (Use only cities where an outbreak occurred)
 cities = dataset.index.levels[0]
 years = dataset.index.levels[1]
 outbreaks = {}
@@ -30,21 +32,20 @@ for year in years:
     outbreaks[year] = outbreak_cities
 
 # Find graph
-# for year in years:              
 year = input("Entre com o ano desejado: ")                     # user input
 focus = []
+g = nx.DiGraph()
 outbreak_cities = outbreaks[year]
 outbreak_cities.sort(key=lambda x : x[1])
 i = 0
 
-    # Focus
+# Focus
 startweek_focus = outbreak_cities[0][1]
 endweek_focus = startweek_focus + focus_time
 while outbreak_cities[i][1] <= endweek_focus:
     focus.append(outbreak_cities[i])
     i = i + 1
-print()
-print(year)
+    g.add_node(outbreak_cities[i][0])
 f_print = tuple(city[0] for city in focus)
 print("Focos da doenca: ", f_print)
     
@@ -56,6 +57,10 @@ print()
 print("Cidades que tiveram correlacao maior que " + str(k) + " com delay 0")
 for cities in S1_cities:
     print(cities)
-    
-S2 = [city for city in outbreak_cities if city not in focus]
+    g.add_node(cities[1])    
+    g.add_edge(cities[0], cities[1])
+
+nx.draw_networkx(g, with_labels=True, arrows=True, nodesize=150, node_color='y')
+plt.show()
+# S2 = [city for city in outbreak_cities if city not in focus]
     
