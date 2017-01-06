@@ -33,12 +33,12 @@ A weighted directed graph where all the vertices are cities and, if there is an 
 The input dataset structure:  
 The input dataset must be in one of the two following structures: raw data or frequency data
 
-    Raw data:
-    Raw data is a dataset where each line represents one city and each column represents a week, in chronological order. Example datasets are going to be added soon.
-    The program also needs a file with two columns, the first being the name of the city and the second the population of it. 
+   Raw data:
+   Raw data is a dataset where each line represents one city and each column represents a week, in chronological order. Example datasets are going to be added soon.
+   The program also needs a file with two columns, the first being the name of the city and the second the population of it. 
 
-    Frequency data:
-    Frequency data is a dataset already divided by the population of the city.
+   Frequency data:
+   Frequency data is a dataset already divided by the population of the city.
 
 Program:  
 The program will receive the dataset in a .csv file and it will pre-process it to change it to the pandas series format. After that, the program will filter the dataset to use only the cities where an significant outbreak occurred (that is, more than 300 cases per 100000 inhabitants). The program find where those outbreaks occurred and will use that to find the focus (cities that had outbreaks before the others). Then, the algoritm will do correlations between the focus and the other cities, therefore, creating a directed graph of the disease spread.
