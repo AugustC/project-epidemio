@@ -11,10 +11,11 @@ Um grafo direcionado e ponderado onde todos os vértices são cidades e existe uma
 A estrutura dos dados de entrada:  
 Os dados de entrada podem estar de duas formas: dados brutos ou dados da incidencia por semana.
    Dados Brutos:
-   Dados brutos são os dados em que cada linha é um caso da doença. Esses dados precisam estar em formato csv e possuir as seguintes colunas: CIDADE(cidade ou município em que foi notificada a doença), NU_ANO(numero do ano em que ocorreu a doença) e SEM_NOT(semana do ano em que ocorreu a doença, i. e., primeira semana (1), segunda semana(2), etc.)
-   Dados da incidencia:
-   Dados da incidencia da doença por semana, i. e., uma matriz em que cada linha é um ano do município e cada coluna é uma semana e os valores são a incidencia da doença naquela cidade durante aquela semana. 
+   Dados brutos são a quantidade de notificações por semana da doença. Cada linha representa uma cidade e cada coluna uma semana, em ordem cronológica. Dados de exemplo serão adicionados.
 O programa também necessita de um arquivo de texto com duas colunas sendo a primeira o nome do município e a segunda a população urbana dele. 
+
+   Dados de Incidencia:
+   Dados de incidencia são os dados já divididos pelo tamanho da população de cada município.
 
 Programa:  
 O programa receberá os dados em .csv e fará um pré-processamento para mudá-los para o formato series do pandas. Com os dados nesse formato, o programa realizará um filtro para retirar os municípios em que não houve surto da doença (não houve incidência de mais de 300 casos a cada 100000 habitantes). O programa então reconhecerá os surtos significativos das doenças e usará isso para achar o foco (municípios que tiveram surto da doença em semanas anteriores ao surto dos outros municípios). Após isso, o algoritmo realizará correlações entre as cidades do foco e as cidades que tiveram surtos posteriores, montando assim o grafo direcionado da mobilidade da doença.
@@ -31,10 +32,11 @@ A weighted directed graph where all the vertices are cities and, if there is an 
 The input dataset structure:  
 The input dataset must be in one of the two following structures: raw data or frequency data
     Raw data:
-    Raw data is a dataset where each line is a case of the disease. This dataset must be in csv format and have the following columns: CIDADE (city where the disease was notified), NU_ANO(the year when the disease was notified), SEM_NOT(the week of the year in which the disease was notified, that is, first week (1), second week(2), so forth)
-    Frequency data:
-    Frequency data of the disease per week, that is, a matrix where each line is a year of a city and each column is a week and the values are the disease frequency of that city during that week.
+    Raw data is a dataset where each line represents one city and each column represents a week, in chronological order. Example datasets are going to be added soon.
+    The program also needs a file with two columns, the first being the name of the city and the second the population of it. 
 
+    Frequency data:
+    Frequency data is a dataset already divided by the population of the city.
 
 Program:  
 The program will receive the dataset in a .csv file and it will pre-process it to change it to the pandas series format. After that, the program will filter the dataset to use only the cities where an significant outbreak occurred (that is, more than 300 cases per 100000 inhabitants). The program find where those outbreaks occurred and will use that to find the focus (cities that had outbreaks before the others). Then, the algoritm will do correlations between the focus and the other cities, therefore, creating a directed graph of the disease spread.
