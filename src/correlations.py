@@ -19,11 +19,11 @@ def correlation_cities(cities1, cities2, dataset, year, delay, threshold):
     cor_cities = []
     for city1 in cities1:
         for city2 in cities2:
-            cor_city1 = dataset[city1[0]][year].values
-            cor_city2 = dataset[city2[0]][year].values
+            cor_city1 = dataset[city1][year].values
+            cor_city2 = dataset[city2][year].values
             p = pearson_correlation(cor_city1, cor_city2, delay)
             if p > threshold:
-                cor_cities.append((city1[0], city2[0]))
+                cor_cities.append((city1, city2, delay))
     return cor_cities
     
 def two_derivatives(city, week):
