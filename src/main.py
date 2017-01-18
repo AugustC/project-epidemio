@@ -74,6 +74,8 @@ while remains:
 # TODO: Change color of focus, put weight(delay) on edges
 pos_spring = nx.spring_layout(g)
 nx.draw_networkx(g, with_labels=False, arrows=True, node_color='y', linewidth=0, pos=pos_spring)
+labels = nx.get_edge_attributes(g, 'weight')
+nx.draw_networkx_edge_labels(g, pos_spring, edge_labels=labels)
 for p in pos_spring:
     pos_spring[p][1] += 0.05
 nx.draw_networkx_labels(g, pos_spring)
