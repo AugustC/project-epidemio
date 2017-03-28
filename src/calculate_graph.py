@@ -79,7 +79,7 @@ def calcula_grafo_correlacoes(data_file, year, aux=1, population_file="", focus_
     for correlations in all_city_correlations:
         for corr in correlations:
             table.set_value(corr[0], corr[1], corr[2])
-    print(table)        
+    table.to_csv(path_or_buf=year, sep=";")
     
     pos_spring = nx.spring_layout(g)
     nx.draw_networkx(g, with_labels=False, arrows=True, node_color='y', linewidth=0, pos=pos_spring)
@@ -88,4 +88,6 @@ def calcula_grafo_correlacoes(data_file, year, aux=1, population_file="", focus_
     for p in pos_spring:         
         pos_spring[p][1] += 0.05
     nx.draw_networkx_labels(g, pos_spring)
-    plt.show()
+
+    plt.title(year)
+    plt.savefig(year + ".png")
