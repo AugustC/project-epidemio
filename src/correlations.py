@@ -47,9 +47,3 @@ def find_outbreaks(dataset, city, year):
             if two_derivatives(disease_frequency, i):
                 return True, i
     return False, -1
-
-
-def derivative_correlation(time_series1, time_series2, delay=0, start=0, time=4):
-    # Derivative correlation
-    pass
-
